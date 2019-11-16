@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-//import 'package:intl/date_symbol_data_local.dart';
+import "package:intl/intl.dart";
 import 'dart:convert';
 
 void main() => runApp(MyHomePage());
