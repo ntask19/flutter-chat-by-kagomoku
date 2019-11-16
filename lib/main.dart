@@ -22,7 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Flutter Firestore Demo'),
+          title: Text('かごもく Chat'),
         ),
         body: createListView(),
         floatingActionButton: FloatingActionButton(
@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     return StreamBuilder(
-      stream: Firestore.instance.collection('speaks').snapshots(),
+      stream: Firestore.instance.collection('speaks').orderBy('timestamp', descending: true).snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         // エラーの場合
         if (snapshot.hasError) {
@@ -61,11 +61,10 @@ class _MyHomePageState extends State<MyHomePage> {
             return ListView(
               children: snapshot.data.documents.map((DocumentSnapshot document) {
                 return new ListTile(
-                  title: new Text(document['name']),
-                  subtitle: new Text(document['text']),
+                  title: new Text(document['text']),
+                  subtitle: new Text(document['name']),
                   trailing: Text(
-//                    (DateFormat('yyyy/MM/dd  HH:mm')).format(DateTime.parse(document['timestamp']).toLocal())
-                      document['timestamp']
+                    (DateFormat('yyyy/MM/dd  HH:mm').format(document['timestamp'].toDate()))
                   ),
 
                 );
